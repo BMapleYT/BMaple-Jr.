@@ -45,6 +45,8 @@ client.on('message', message => {
     if(message.author.bot) return;
 
     //XP System
+    let spam = message.guild.channels.cache.find(channel => channel.name === 'spam')
+
     let xpAdd = Math.floor(Math.random() * 7) + 8;
     console.log(xpAdd);
 
@@ -203,4 +205,4 @@ client.on('message', message => {
 
 
 //Bot Login Token
-client.login(process.env.DJS_TOKEN);
+client.login("NzgzODA3OTIzNjQ1ODQxNDI5.X8gIAw.tTpev-6u2WoZOCfC6CJ1gMgofdQ");
