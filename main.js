@@ -4,9 +4,9 @@ const client = new Discord.Client();
 client.commands = new Discord.Collection();
 let coins = require("./coins.json");
 let xp = require("./xp.json");
-const config = require('./config.json');
-client.config = config;
-const prefix = config.prefix;
+// const config = require('./config.json');
+// client.config = config;
+const prefix = ".";
 
 const { GiveawaysManager } = require('discord-giveaways');
 
@@ -203,4 +203,4 @@ client.on('message', message => {
 
 
 //Bot Login Token
-client.login(config.token);
+client.login(process.env.DJS_TOKEN);
