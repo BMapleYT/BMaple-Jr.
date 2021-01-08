@@ -30,7 +30,7 @@ for (const file of commandFiles) {
 
 client.once('ready', () => {
     console.log(`${client.user.username} is now active!`);
-    client.user.setActivity('BMaple', {type: 'WATCHING'});
+    client.user.setActivity('BMaple', { type: 'WATCHING' });
 });
 
 client.on('guildMemberAdd', guildMember => {
@@ -42,15 +42,25 @@ client.on('guildMemberAdd', guildMember => {
 
 client.on('message', message => {
     //prevents the bot from getting xp
-    if(message.author.bot) return;
+    if (message.author.bot) return;
 
     //XP System
-    let spam = message.guild.channels.cache.find(channel => channel.name === 'spam')
+    if (!message.channel.id === '797246144874020904' || '771478402255421500') {
+        let xpAdd = Math.floor(Math.random() * 7) + 8;
+        console.log(xpAdd);
+
+        if (!xp[message.author.id]) {
+            xp[message.author.id] = {
+                xp: 0,
+                level: 1
+            };
+        }
+    }
 
     let xpAdd = Math.floor(Math.random() * 7) + 8;
     console.log(xpAdd);
 
-    if(!xp[message.author.id]){
+    if (!xp[message.author.id]) {
         xp[message.author.id] = {
             xp: 0,
             level: 1
@@ -79,14 +89,14 @@ client.on('message', message => {
 
     //Level Ups
     xp[message.author.id].xp = curxp + xpAdd;
-    if(nxtLvl <= xp[message.author.id].xp){
+    if (nxtLvl <= xp[message.author.id].xp) {
         xp[message.author.id].level = curlvl + 1;
         xp[message.author.id].xp = 0;
 
         message.channel.send(`${message.author} has advanced to level ${curlvl + 1}! Good job! <:peepopoggers:760270954760503316>`);
     }
     fs.writeFile("./xp.json", JSON.stringify(xp), (err) => {
-        if(err) console.log(err)
+        if (err) console.log(err)
     });
 
     //XP Level Roles
@@ -100,7 +110,7 @@ client.on('message', message => {
         message.member.roles.add(lvlFifteen);
     }
     if (curlvl >= 20) {
-    message.member.roles.add(lvlTwenty);
+        message.member.roles.add(lvlTwenty);
     }
     if (curlvl >= 25) {
         message.member.roles.add(lvlTwentyFive);
@@ -134,7 +144,7 @@ client.on('message', message => {
 
 
     //Coin system
-    if(!coins[message.author.id]){
+    if (!coins[message.author.id]) {
         coins[message.author.id] = {
             coins: 0
         };
@@ -144,13 +154,13 @@ client.on('message', message => {
     let coinAmt = Math.floor(Math.random() * 15) + 1;
     let baseAmt = Math.floor(Math.random() * 15) + 1;
 
-    if(coinAmt === baseAmt){
+    if (coinAmt === baseAmt) {
         coins[message.author.id] = {
             coins: coins[message.author.id].coins + coinAmt
         };
-    fs.writeFile("./coins.json", JSON.stringify(coins), (err) => {
-        if (err) console.log(err)
-    });
+        fs.writeFile("./coins.json", JSON.stringify(coins), (err) => {
+            if (err) console.log(err)
+        });
     }
 
     if (!message.content.startsWith(prefix)) return;
@@ -199,7 +209,7 @@ client.on('message', message => {
         client.commands.get('level').execute(message, args)
     } else if (command === 'doggo') {
         client.commands.get('doggo').execute(message, args)
-    } 
+    }
 });
 
 
