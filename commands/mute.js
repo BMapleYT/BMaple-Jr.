@@ -7,13 +7,13 @@ module.exports = {
             const target = message.mentions.users.first();
             if (target) {
      
-                let muteRole = message.guild.roles.cache.find(role => role.name === 'Muted');
+                let muteRole = message.guild.roles.cache.find(role => role.id === '759129133094666310');
      
                 let memberTarget = message.guild.members.cache.get(target.id);
      
                 if (!args[1]) {
                     memberTarget.roles.add(muteRole.id);
-                    message.channel.send(`<@${memberTarget.user.id}> has been muted`);
+                    message.channel.send(`<@${memberTarget.user.id}> has been muted!`);
                     return
                 }
                 memberTarget.roles.add(muteRole.id);
