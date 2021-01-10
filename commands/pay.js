@@ -7,8 +7,6 @@ module.exports = {
     description: "Pay a user with your coins!",
     async execute(message, args) {
         //.pay <user> <amount>
-
-        if (message.guild.member(message.mentions.users.first()) === message.author.id) return message.reply("you are not able to pay yourself!");
         
         if(!coins[message.author.id]){
             return message.reply("you don't have any coins!")
@@ -21,6 +19,8 @@ module.exports = {
         }
 
         let pUser = message.guild.member(message.mentions.users.first());
+
+        if (pUser.id === message.author.id) return message.reply("you are not able to pay yourself!");
 
         if(!coins[pUser.id]){
             coins[pUser.id] = {
