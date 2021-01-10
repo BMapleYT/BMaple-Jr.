@@ -8,7 +8,7 @@ module.exports = {
     async execute(message, args) {
         //.pay <user> <amount>
 
-        if (message.guild.member(message.mentions.users.first()) === message.author.id) return;
+        if (message.guild.member(message.mentions.users.first()) === message.author.id) return message.reply("you are not able to pay yourself!");
         
         if(!coins[message.author.id]){
             return message.reply("you don't have any coins!")
