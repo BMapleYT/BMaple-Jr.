@@ -45,7 +45,7 @@ client.on('message', message => {
     if (message.author.bot) return;
 
     //-- Start of AntiPing --
-    if (content.includes('@BMaple' || '<@395261516250873858>')){
+    if (message.content.includes('@BMaple' || '<@395261516250873858>')){
             if (!message.member.hasPermission("MANAGE_MESSAGES")){
                 message.delete
                 message.reply("please do not ping the owner! He has a life outside of discord!")
