@@ -56,16 +56,6 @@ client.on('message', message => {
     //-- End of AntiPing --
 
 
-    //-- Start of AutoMod --
-
-    if (message === "poggers") {
-        message.delete();
-
-    }
-
-    //-- End of AutoMod --
-
-
     //XP System
     if (!message.channel.id === '797246144874020904' || '771478402255421500') {
         let xpAdd = Math.floor(Math.random() * 7) + 8;
@@ -231,6 +221,8 @@ client.on('message', message => {
         client.commands.get('level').execute(message, args)
     } else if (command === 'doggo') {
         client.commands.get('doggo').execute(message, args)
+    } else if (command === 'slowmode') {
+        client.commands.get('slowmode').execute(message, args)
     }
 });
 
