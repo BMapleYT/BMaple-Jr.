@@ -4,6 +4,7 @@ const client = new Discord.Client();
 client.commands = new Discord.Collection();
 let coins = require("./coins.json");
 let xp = require("./xp.json");
+let warnings = require("./warnings.json");
 // const config = require('./config.json');
 // client.config = config;
 const prefix = ".";
@@ -53,6 +54,17 @@ client.on('message', message => {
         message.reply("please do not ping the owner!")
     }
     //-- End of AntiPing --
+
+
+    //-- Start of AutoMod --
+
+    if (message === "poggers") {
+        message.delete();
+
+    }
+
+    //-- End of AutoMod --
+
 
     //XP System
     if (!message.channel.id === '797246144874020904' || '771478402255421500') {
