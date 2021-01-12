@@ -49,7 +49,7 @@ client.on('message', message => {
     const bmaple = client.users.cache.find(user => user.id === '395261516250873858');
 
     if (user === bmaple) {
-        message.delete
+        message.delete();
         message.reply("please do not ping the owner!")
     }
     //-- End of AntiPing --
