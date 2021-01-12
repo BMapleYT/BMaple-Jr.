@@ -45,11 +45,12 @@ client.on('message', message => {
     if (message.author.bot) return;
 
     //-- Start of AntiPing --
-    if (message.mentions('395261516250873858')){
-            if (!message.member.hasPermission("MANAGE_MESSAGES")){
-                message.delete
-                message.reply("please do not ping the owner! He has a life outside of discord!")
-            }
+    const user = message.mentions.users.first()
+    const bmaple = client.users.cache.find(user => user.id === '395261516250873858');
+
+    if (user === bmaple) {
+        message.delete
+        message.reply("please do not ping the owner!")
     }
     //-- End of AntiPing --
 
