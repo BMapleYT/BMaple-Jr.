@@ -1,4 +1,3 @@
-const Commando = require('commando');
 const Discord = require('discord.js');
 
 module.exports = {
