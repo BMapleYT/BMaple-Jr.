@@ -9,7 +9,9 @@ module.exports = {
         if (message.member.hasPermission("MANAGE_CHANNELS")) {
             const { channel } = message
 
-            let duration = args.toLowerCase()
+            if (!args[0]) return message.reply("you must provide a slowmode to set this channel to!");
+            
+            let duration = args.shift().toLowerCase();
             if (duration === 'off') {
                 duration = 0
             }
