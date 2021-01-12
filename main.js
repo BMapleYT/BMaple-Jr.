@@ -44,6 +44,15 @@ client.on('message', message => {
     //prevents the bot from getting xp
     if (message.author.bot) return;
 
+    //-- Start of AntiPing --
+    if (content.includes('@BMaple' || '<@395261516250873858>')){
+            if (!message.member.hasPermission("ADMINISTRATOR")){
+                message.delete
+                message.reply("please do not ping the owner! He has a life outside of discord!")
+            }
+    }
+    //-- End of AntiPing --
+
     //XP System
     if (!message.channel.id === '797246144874020904' || '771478402255421500') {
         let xpAdd = Math.floor(Math.random() * 7) + 8;
