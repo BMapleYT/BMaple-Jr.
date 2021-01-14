@@ -10,10 +10,10 @@ module.exports = {
         .get(`https://random.dog/woof.json`);
 
         let dogembed = new Discord.MessageEmbed()
-        .setColor("#ff9900")
-        .setTitle("Doggo")
-        .setImage(body.url);
+        .setColor("#c4b26a")
+        .setTitle("Bork bork 🐶")
+        .setImage(body.url)
+        .setDescription(`Requested by ${message.author.username}`)
         message.channel.send(dogembed);
-
     }
 }

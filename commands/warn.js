@@ -9,17 +9,26 @@ module.exports = {
     async execute(message, args) {
         //warn <@user> <reason>
         if(!message.member.hasPermission("MANAGE_MEMBERS")) return message.reply("You do not have permission to do this!");
-        let wUser = message.guild.member(message.mentions.users.first()) || message.guild.members.cache.get(args[0])
+
+        let wUser = message.guild.member(message.mentions.users.first()) || message.guild.members.cache.get(args[0]);
+
+        let sWarns = warns[wUser.id].warns;
+        
         if(!wUser) return message.reply("You cannot warn this member because they do not exist!");
+        
         if(wUser.hasPermission("MANAGE_MESSAGES")) return message.reply("You cannot warn this user!")
+        
         let reason = args.join(" ").slice(22)
+        
         if(!reason) return message.reply("You must specify a reason!");
 
         if(!warns[wUser.id]) warns[wUser.id] = {
             warns: 0
         };
 
-        warns[wUser.id].warns++;
+        warns[wUser.id] = {
+            warns = sWarns + 1
+        }
 
         fs.writeFile("./warnings.json", JSON.stringify(warns), (err) => {
             if (err) {console.log(err)}

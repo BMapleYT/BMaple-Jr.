@@ -193,16 +193,10 @@ client.on('message', message => {
         client.commands.get('unmute').execute(message, args)
     } else if (command === 'rules') {
         client.commands.get('rules').execute(message, args)
-    } else if (command === 'help') {
-        client.commands.get('help').execute(message, args)
     } else if (command === '8ball') {
         client.commands.get('8ball').execute(message, args)
     } else if (command === 'meme') {
         client.commands.get('meme').execute(message, args)
-    } else if (command === 'tester') {
-        client.commands.get('tester').execute(message, args)
-    } else if (command === 'detester') {
-        client.commands.get('detester').execute(message, args)
     } else if (command === 'warn') {
         client.commands.get('warn').execute(message, args)
     } else if (command === 'coins') {
@@ -223,7 +217,7 @@ client.on('message', message => {
         client.commands.get('doggo').execute(message, args)
     } else if (command === 'slowmode') {
         client.commands.get('slowmode').execute(message, args)
-    }
+    } 
 });
 
 
