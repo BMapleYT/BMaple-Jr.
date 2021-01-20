@@ -49,10 +49,12 @@ client.on('message', message => {
     const user = message.mentions.users.first()
     const bmaple = client.users.cache.find(user => user.id === '395261516250873858');
 
-    if (user === bmaple) {
+    if (!message.author === bmaple) {
+        if (user === bmaple) {
         message.delete();
         message.reply("please do not ping the owner!")
     }
+}
     //-- End of AntiPing --
 
 
@@ -209,6 +211,10 @@ client.on('message', message => {
         client.commands.get('buy').execute(message, args)
     } else if (command === 'daily') {
         client.commands.get('daily').execute(message, args)
+    } else if (command === 'weekly') {
+        client.commands.get('weekly').execute(message, args)
+    } else if (command === 'monthly') {
+        client.commands.get('monthly').execute(message,args)
     } else if (command === 'work') {
         client.commands.get('work').execute(message, args)
     } else if (command === 'level') {

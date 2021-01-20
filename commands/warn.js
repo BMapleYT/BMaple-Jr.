@@ -11,8 +11,6 @@ module.exports = {
         if(!message.member.hasPermission("MANAGE_MEMBERS")) return message.reply("You do not have permission to do this!");
 
         let wUser = message.guild.member(message.mentions.users.first()) || message.guild.members.cache.get(args[0]);
-
-        let sWarns = warns[wUser.id].warns;
         
         if(!wUser) return message.reply("You cannot warn this member because they do not exist!");
         
@@ -26,9 +24,7 @@ module.exports = {
             warns: 0
         };
 
-        warns[wUser.id] = {
-            warns = sWarns + 1
-        }
+        warns[wUser.id].warns++;
 
         fs.writeFile("./warnings.json", JSON.stringify(warns), (err) => {
             if (err) {console.log(err)}
