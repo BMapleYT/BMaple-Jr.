@@ -1,6 +1,6 @@
 const Discord = require("discord.js");
 const fs = require("fs");
-let coins = require("../coins.json");
+let coins = require("../../coins.json");
 
 module.exports = {
     name: 'pay',

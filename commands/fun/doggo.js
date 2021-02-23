@@ -1,6 +1,5 @@
 const Discord = require("discord.js");
 const superagent = require("superagent");
-const { execute } = require("./level");
 
 module.exports = {
     name: 'doggo',

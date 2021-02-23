@@ -1,16 +1,18 @@
-const { timeStamp } = require("console");
 const Discord = require("discord.js");
 const fs = require("fs");
 const db = require("quick.db");
 const ms = require('parse-ms');
-let coins = require("../coins.json");
-let xp = require("../xp.json");
-const { execute } = require("./pay");
+let coins = require('../../coins.json');
+let xp = require("../../xp.json");
 
 module.exports = {
-    name: 'buy',
-    description: "Buy things from the shop with your coins",
-    async execute(message, args) {
+    commands: ['buy'],
+    expectedArgs: '<item>',
+    permissionError: [],
+    minArgs: 1,
+    maxArgs: 1,
+
+    callback: async (message, arguments, text) => {
         //.buy <item>
 
         if (!coins[message.author.id]) {
@@ -96,5 +98,7 @@ module.exports = {
                 message.reply("your shoutout request is being processed! BMaple will shout you out in his next video!");
             }
         }
-    }
+    },
+    permissions: [],
+    requiredRoles: [],
 }

@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 const db = require('quick.db');
 const ms = require('parse-ms');
-const coins = require('../coins.json');
+const coins = require('../../coins.json');
 const { execute } = require('./daily');
 
 module.exports = {

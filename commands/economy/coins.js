@@ -1,9 +1,13 @@
 const Discord = require("discord.js");
-let coins = require("../coins.json");
+let coins = require("../../coins.json");
 
 module.exports = {
-    name: 'coins',
-    async execute(message, args) {
+    commands: ['coins', 'bal', 'balance'],
+    expectedArgs: [],
+    permissionError: [],
+    minArgs: 0,
+    maxArgs: 0,
+    callback: (message, arguments, text) => {
         //.coins
         if(!coins[message.author.id]){
             coins[message.author.id] = {
@@ -19,6 +23,7 @@ module.exports = {
     .addField("💸", uCoins);
 
     message.channel.send(coinEmbed);
-    }
-    
+    },
+    permissions: [],
+    requiredRoles: [],
 }

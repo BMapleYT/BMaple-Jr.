@@ -1,50 +1,48 @@
+const path = require('path');
 const Discord = require('discord.js');
 const fs = require('fs');
 const client = new Discord.Client();
-client.commands = new Discord.Collection();
 let coins = require("./coins.json");
 let xp = require("./xp.json");
 let warnings = require("./warnings.json");
-// const config = require('./config.json');
-// client.config = config;
 const prefix = ".";
-
-const { GiveawaysManager } = require('discord-giveaways');
-
-client.giveawaysManager = new GiveawaysManager(client, {
-    storeate: "./giveaways.json",
-    updateCountDownEvery: 5000,
-    default: {
-        botsCanWin: false,
-        exemptPermissions: ["MANAGE_MESSAGES", "ADMINISTRATOR"],
-        embedColor: "#FF0000",
-        reaction: "🎉"
-    }
-});
-
-const commandFiles = fs.readdirSync('./commands/').filter(file => file.endsWith('.js'));
-for (const file of commandFiles) {
-    const command = require(`./commands/${file}`);
-
-    client.commands.set(command.name, command);
-}
 
 client.once('ready', () => {
     console.log(`${client.user.username} is now active!`);
     client.user.setActivity('BMaple', { type: 'WATCHING' });
+
+
+    //Start of command-base
+    const baseFile = 'command-base.js'
+    const commandBase = require(`./commands/${baseFile}`)
+
+    const readCommands = dir => {
+        const files = fs.readdirSync(path.join(__dirname, dir))
+        for (const file of files) {
+            const stat = fs.lstatSync(path.join(__dirname, dir, file))
+            if (stat.isDirectory()) {
+                readCommands(path.join(dir, file))
+            } else if (file !== baseFile) {
+                const option = require(path.join(__dirname, dir, file))
+                commandBase(client, option)
+            }
+        }
+    }
+
+    readCommands('commands')
+    //End of command-base
+
+
+
 });
 
 client.on('guildMemberAdd', guildMember => {
     let welcomeRole = guildMember.guild.roles.cache.find(role => role.name === 'Member');
 
     guildMember.roles.add(welcomeRole);
-    guildMember.guild.channels.cache.get('760216039316389888').send(`Welcome <@${guildMember.user.id}> to the BMaple Community Discord Server! Make sure to read the rules!`)
-});
+})
 
 client.on('message', message => {
-    //prevents the bot from getting xp
-    if (message.author.bot) return;
-
     //-- Start of AntiPing --
     const user = message.mentions.users.first()
     const bmaple = client.users.cache.find(user => user.id === '395261516250873858');
@@ -176,57 +174,9 @@ client.on('message', message => {
             if (err) console.log(err)
         });
     }
-
-    if (!message.content.startsWith(prefix)) return;
-
-    const args = message.content.slice(prefix.length).split(/ +/);
-    const command = args.shift().toLowerCase();
-
-    //Command Handler
-    if (command === 'ping') {
-        client.commands.get('ping').execute(message, args)
-    } else if (command === 'kick') {
-        client.commands.get('kick').execute(message, args)
-    } else if (command === 'ban') {
-        client.commands.get('ban').execute(message, args)
-    } else if (command === 'mute') {
-        client.commands.get('mute').execute(message, args)
-    } else if (command === 'unmute') {
-        client.commands.get('unmute').execute(message, args)
-    } else if (command === 'rules') {
-        client.commands.get('rules').execute(message, args)
-    } else if (command === '8ball') {
-        client.commands.get('8ball').execute(message, args)
-    } else if (command === 'meme') {
-        client.commands.get('meme').execute(message, args)
-    } else if (command === 'warn') {
-        client.commands.get('warn').execute(message, args)
-    } else if (command === 'coins') {
-        client.commands.get('coins').execute(message, args)
-    } else if (command === 'pay') {
-        client.commands.get('pay').execute(message, args)
-    } else if (command === 'shop') {
-        client.commands.get('shop').execute(message, args)
-    } else if (command === 'buy') {
-        client.commands.get('buy').execute(message, args)
-    } else if (command === 'daily') {
-        client.commands.get('daily').execute(message, args)
-    } else if (command === 'weekly') {
-        client.commands.get('weekly').execute(message, args)
-    } else if (command === 'monthly') {
-        client.commands.get('monthly').execute(message,args)
-    } else if (command === 'work') {
-        client.commands.get('work').execute(message, args)
-    } else if (command === 'level') {
-        client.commands.get('level').execute(message, args)
-    } else if (command === 'doggo') {
-        client.commands.get('doggo').execute(message, args)
-    } else if (command === 'slowmode') {
-        client.commands.get('slowmode').execute(message, args)
-    } 
-});
+})
 
 
 
 //Bot Login Token
-client.login("NzgzODA3OTIzNjQ1ODQxNDI5.X8gIAw.tTpev-6u2WoZOCfC6CJ1gMgofdQ");
+client.login(client.token);
